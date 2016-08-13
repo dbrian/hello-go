@@ -1,0 +1,1 @@
+# Sample Go Web Service
