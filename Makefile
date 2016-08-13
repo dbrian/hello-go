@@ -1,7 +1,7 @@
 VERSION?=1.0
 IMAGENAME?=dbrian/hello-go
 
-release: clean build push
+release: clean build
 
 build:
 	docker run \
