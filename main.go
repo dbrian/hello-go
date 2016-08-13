@@ -1,4 +1,4 @@
-package main // import "golang.org/dbrian/hello-go"
+package main // import "github.com/dbrian/hello-go"
 
 import (
 	"io"
