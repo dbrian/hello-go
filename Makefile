@@ -4,7 +4,7 @@ IMAGENAME?=dbrian/hello-go
 release: clean build push
 
 build:
-	docker run --rm \
+	docker run \
 	  -v "$(shell pwd):/src" \
 	  -v /var/run/docker.sock:/var/run/docker.sock \
 	  centurylink/golang-builder \
