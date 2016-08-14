@@ -1,16 +1,5 @@
 machine:
   environment:
     PROJECT_NAME: hello-go
-    DEBIAN_FRONTEND: noninteractive
   services:
     - docker
-
-dependencies:
-  pre:
-    - make build
-
-deployment:
-  prod:
-    branch: master
-    commands:
-      - make push
