@@ -1,21 +1,23 @@
-VERSION?=1.0
-IMAGENAME?=dbrian/hello-go
+.PHONY: all
 
-release: clean build
+GIT_BRANCH?=$(shell git rev-parse --abbrev-ref HEAD 2>/dev/null)
+BUILD_NUMBER?=${USER}-${GIT_BRANCH}
+VERSION?=1.0.${BUILD_NUMBER}
+APPNAME?=dbrian/hello-go
 
-build:
-	docker run \
-	  -v "$(shell pwd):/src" \
-	  -v /var/run/docker.sock:/var/run/docker.sock \
-	  centurylink/golang-builder \
-	  ${IMAGENAME}:${VERSION}
-
-push:
-	docker push ${IMAGENAME}:${VERSION}
+release: clean build docker-build
 
 clean:
-	rm -f hello-go
-	docker rm -f ${IMAGENAME}:${VERSION} 2> /dev/null || true
-	docker rmi -f ${IMAGENAME}:${VERSION} 2> /dev/null || true
+	rm -rf dist
+	docker rm -f ${APPNAME}:${VERSION} 2> /dev/null || true
+	docker rmi -f ${APPNAME}:${VERSION} 2> /dev/null || true
+	docker rm -f ${APPNAME} 2> /dev/null || true
+	docker rmi -f ${APPNAME} 2> /dev/null || true
 
-.PHONY: release clean build push
+build:
+	docker run -v "$(shell pwd):/src" centurylink/golang-builder
+	mkdir -p dist
+	mv hello-go dist/
+
+docker-build:
+	docker build -t ${APPNAME} -t ${APPNAME}:${VERSION} .

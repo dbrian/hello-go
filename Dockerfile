@@ -1,4 +1,4 @@
 FROM scratch
 EXPOSE 80
-COPY hello-go /
+COPY dist/hello-go /
 ENTRYPOINT ["/hello-go"]
