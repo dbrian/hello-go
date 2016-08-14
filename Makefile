@@ -1,8 +1,8 @@
 .PHONY: all
 
 GIT_BRANCH?=$(shell git rev-parse --abbrev-ref HEAD 2>/dev/null)
-BUILD_NUMBER?=${USER}-${GIT_BRANCH}
-VERSION?=1.0.${BUILD_NUMBER}
+TRAVIS_BUILD_NUMBER?=${USER}-${GIT_BRANCH}
+VERSION?=1.0.${TRAVIS_BUILD_NUMBER}
 APPNAME?=dbrian/hello-go
 
 release: clean build docker-build
